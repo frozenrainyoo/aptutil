@@ -25,6 +25,9 @@
 
   [FIRApp configure];
   
+  // Initialize the Google Mobile Ads SDK.
+  [GADMobileAds configureWithApplicationID:@"ca-app-pub-1279605737395639~6376302947"];
+
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"AptUtilClient"
                                                initialProperties:nil
