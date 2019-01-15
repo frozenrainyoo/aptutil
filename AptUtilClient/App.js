@@ -5,62 +5,73 @@
  * @format
  * @flow
  */
-
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import firebase from 'react-native-firebase';
-
-const bannerUnitId = Platform.select({
-  ios: "ca-app-pub-1279605737395639/4912900239",
-  android: "ca-app-pub-1279605737395639/8208259366",
-});
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import React, { Component } from 'react';
+import Navigation from './Navigation';
 
 type Props = {};
 export default class App extends Component<Props> {
   render() {
-    const Banner = firebase.admob.Banner;
-    const AdRequest = firebase.admob.AdRequest;
-    const request = new AdRequest();
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-        <Banner
-          unitId={bannerUnitId}
-          size={'SMART_BANNER'}
-          request={request.build()}
-          onAdLoaded={() => {
-            console.log('Advert loaded');
-          }}
-        />
-      </View>
-    );
+      <Navigation />
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+// import React, {Component} from 'react';
+// import {Platform, StyleSheet, Text, View} from 'react-native';
+// import firebase from 'react-native-firebase';
+
+// const bannerUnitId = Platform.select({
+//   ios: "ca-app-pub-1279605737395639/4912900239",
+//   android: "ca-app-pub-1279605737395639/8208259366",
+// });
+
+// const instructions = Platform.select({
+//   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+//   android:
+//     'Double tap R on your keyboard to reload,\n' +
+//     'Shake or press menu button for dev menu',
+// });
+
+// type Props = {};
+// export default class App extends Component<Props> {
+//   render() {
+//     const Banner = firebase.admob.Banner;
+//     const AdRequest = firebase.admob.AdRequest;
+//     const request = new AdRequest();
+//     return (
+//       <View style={styles.container}>
+//         <Text style={styles.welcome}>Welcome to React Native!</Text>
+//         <Text style={styles.instructions}>To get started, edit App.js</Text>
+//         <Text style={styles.instructions}>{instructions}</Text>
+//         <Banner
+//           unitId={bannerUnitId}
+//           size={'SMART_BANNER'}
+//           request={request.build()}
+//           onAdLoaded={() => {
+//             console.log('Advert loaded');
+//           }}
+//         />
+//       </View>
+//     );
+//   }
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//     backgroundColor: '#F5FCFF',
+//   },
+//   welcome: {
+//     fontSize: 20,
+//     textAlign: 'center',
+//     margin: 10,
+//   },
+//   instructions: {
+//     textAlign: 'center',
+//     color: '#333333',
+//     marginBottom: 5,
+//   },
+// });
