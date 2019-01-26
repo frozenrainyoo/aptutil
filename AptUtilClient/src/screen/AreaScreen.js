@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, BackHandler } from 'react-native';
 
 type Props = {};
 export default class AreaScreen extends Component<Props> {
+  static navigationOptions = {
+    title: '평수 계산',
+  };
+
+  _didFocusSubscription;
+  _willBlurSubscription;
+
   constructor(props) {
     super(props);
 
     this.changeMode = this.changeMode.bind(this);
     this.calc = this.calc.bind(this);
+    this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
 
     this.state = {
       mode: true,
@@ -16,6 +26,22 @@ export default class AreaScreen extends Component<Props> {
       view1: '㎡',
       view2: '평',
     };
+  }
+
+  componentDidMount() {
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+  }
+
+  onBackButtonPressAndroid = () => {
+    this.props.navigation.navigate('MainScreen')
+    return true
+  };
+
+  componentWillUnmount() {
+    this._didFocusSubscription && this._didFocusSubscription.remove();
+    this._willBlurSubscription && this._willBlurSubscription.remove();
   }
 
   changeMode() {

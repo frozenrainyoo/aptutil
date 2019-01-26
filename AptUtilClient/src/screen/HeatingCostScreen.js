@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { Alert, StyleSheet, Text, View, Button, TextInput, BackHandler } from 'react-native';
 
 type Props = {};
 export default class HeatingCostScreen extends Component<Props> {
+  static navigationOptions = {
+    title: '난방비 계산',
+  };
+
+  _didFocusSubscription;
+  _willBlurSubscription;
+
   constructor(props) {
     super(props);
 
     this._onChangeTextPrice = this._onChangeTextPrice.bind(this);
     this._onChangeTextUsage = this._onChangeTextUsage.bind(this);
     this._calc = this._calc.bind(this);
+    this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
 
     this.state = {
       mode: 'Mwh',
@@ -16,6 +26,22 @@ export default class HeatingCostScreen extends Component<Props> {
       usage: 0,
       result: 0,
     };
+  }
+
+  componentDidMount() {
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+  }
+
+  onBackButtonPressAndroid = () => {
+    this.props.navigation.navigate('MainScreen')
+    return true
+  };
+
+  componentWillUnmount() {
+    this._didFocusSubscription && this._didFocusSubscription.remove();
+    this._willBlurSubscription && this._willBlurSubscription.remove();
   }
 
   _calc(price, usage) {

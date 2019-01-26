@@ -3,6 +3,17 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } 
 
 type Props = {};
 export default class MainScreen extends Component<Props> {
+  static navigationOptions = {
+    title: '아파트 유틸리티',
+    headerStyle: {
+      backgroundColor: '#00a11e',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  };
+
   render() {
     return (
       <View style={styles.container}>
