@@ -3,12 +3,14 @@ import { createStackNavigator } from 'react-navigation';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { reduxifyNavigator, createReactNavigationReduxMiddleware, createNavigationReducer } from 'react-navigation-redux-helpers';
 import { Provider, connect } from 'react-redux';
-import Screen1 from './Screen1'
-import Screen2 from './Screen2'
+import MainScreen from '../screen/MainScreen'
+import AreaScreen from '../screen/AreaScreen'
+import HeatingCostScreen from '../screen/HeatingCostScreen'
 
 const AppNavigator = createStackNavigator({
-  Screen1: { screen: Screen1 },
-  Screen2: { screen: Screen2 },
+  MainScreen: { screen: MainScreen },
+  AreaScreen: { screen: AreaScreen },
+  HeatingCostScreen: { screen: HeatingCostScreen},
 });
 
 const navReducer = createNavigationReducer(AppNavigator);

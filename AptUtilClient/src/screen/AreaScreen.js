@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
 type Props = {};
-export default class Screen2 extends Component<Props> {
+export default class AreaScreen extends Component<Props> {
   constructor(props) {
     super(props);
 
