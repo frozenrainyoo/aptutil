@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } from 'react-native';
+import { Alert, StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight, BackHandler } from 'react-native';
 
 type Props = {};
 export default class MainScreen extends Component<Props> {
@@ -13,6 +13,40 @@ export default class MainScreen extends Component<Props> {
       fontWeight: 'bold',
     },
   };
+
+  _didFocusSubscription;
+  _willBlurSubscription;
+
+  constructor(props) {
+    super(props);
+
+    this._didFocusSubscription = props.navigation.addListener('didFocus', payload =>
+      BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+  }
+
+  componentDidMount() {
+    this._willBlurSubscription = this.props.navigation.addListener('willBlur', payload =>
+      BackHandler.removeEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
+    );
+  }
+
+  onBackButtonPressAndroid = () => {
+    Alert.alert(
+      '종료',
+      '종료하시겠습니까?',
+      [
+        { text: '아니요', onPress: () => console.log('Cancel Pressed'), style: 'cancel' },
+        { text: '네', onPress: () => BackHandler.exitApp() },
+      ],
+      { cancelable: false });
+    return true
+  };
+
+  componentWillUnmount() {
+    this._didFocusSubscription && this._didFocusSubscription.remove();
+    this._willBlurSubscription && this._willBlurSubscription.remove();
+  }
 
   render() {
     return (
