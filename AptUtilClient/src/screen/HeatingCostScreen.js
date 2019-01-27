@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, View, Button, TextInput, BackHandler } from 'react-native';
+import { Dimensions, Alert, StyleSheet, Text, View, Button, TextInput, BackHandler } from 'react-native';
+import { Dropdown } from 'react-native-material-dropdown';
 
 type Props = {};
 export default class HeatingCostScreen extends Component<Props> {
@@ -65,22 +66,46 @@ export default class HeatingCostScreen extends Component<Props> {
   }
 
   render() {
+    let deviceWidth = Dimensions.get('window').width
+
+    let data = [{
+      value: 'Mcal',
+    }, {
+      value: 'Mwh',
+    }];
+
     return (
       <View style={styles.container}>
-        <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
-          <Text style={styles.label}>난방단가 입력 : </Text>
+        <View style={{
+          flexDirection: 'row', paddingVertical: 10, justifyContent: 'center',
+          alignItems: 'center'}}>
+          <Dropdown
+            containerStyle={{ borderWidth: 1, borderColor: 'lightgrey', width: deviceWidth * 0.3, paddingLeft: deviceWidth * 0.02 }}
+            label='난방 단위'
+            data={data}
+          />
+          <Text style={styles.label}>당 단가: </Text>
           <TextInput
             keyboardType='number-pad'
             style={{ width: 100, height: 40, borderColor: 'gray', borderWidth: 1 }}
             onChangeText={this._onChangeTextPrice}
           />
+          <Text style={styles.label}>원</Text>
         </View>
-        <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
-          <Text style={styles.label}>사용량 입력 : </Text>
+        <View style={{
+          flexDirection: 'row', paddingVertical: 10, justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Text style={styles.label}>사용량 : </Text>
           <TextInput
             keyboardType='number-pad'
             style={{ width: 100, height: 40, borderColor: 'gray', borderWidth: 1 }}
             onChangeText={this._onChangeTextUsage}
+          />
+          <Dropdown
+            containerStyle={{ borderWidth: 1, borderColor: 'lightgrey', width: deviceWidth * 0.3, paddingLeft: deviceWidth * 0.02 }}
+            label='난방 단위'
+            data={data}
           />
         </View>
 
